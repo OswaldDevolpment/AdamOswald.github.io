@@ -789,7 +789,12 @@ hljs.LANGUAGES.css = (function () {
         { cN: "class", b: "\\.[A-Za-z0-9_-]+", r: 0 },
         { cN: "attr_selector", b: "\\[", e: "\\]", i: "$" },
         { cN: "pseudo", b: ":(:)?[a-zA-Z0-9\\_\\-\\+\\(\\)\\\"\\']+" },
-        { cN: "at_rule", b: "@font-face", l: "[a-z-]+", k: { "font-face": 1 } },
+        {
+          cN: "at_rule",
+          b: "@font-face",
+          l: "[a-z-]+",
+          k: { "font-face": 1 },
+        },
         {
           cN: "at_rule",
           b: "@",
