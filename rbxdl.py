@@ -66,10 +66,7 @@ def makeWebReq(url):
 #used for getting metadata of an asset
 def getMeta(astId, specific = None):
     resp = makeWebReq(f'{apiUrl}{astId}')
-    if resp[0] == 200:
-        return resp[1].json().get(specific) or resp[1].json()
-    else:
-        return 0
+    return resp[1].json().get(specific) or resp[1].json() if resp[0] == 200 else 0
 #Reduces amount of code I need to write
 def createDirectory(dirName):
     if not os.path.isdir(str(dirName)):
@@ -82,22 +79,20 @@ def saveAsset(astId, astTypeStr, cDir, sDirName, astData, astVer):
         createDirectory(f'{cDir}\\{astTypeStr}')
         saveLocation = createDirectory(f'{cDir}\\{astTypeStr}\\{astId}') if sDirName is True else f'{cDir}\\{astTypeStr}'
         fileName = f'{saveLocation}\\{astId}-version{astVer}' if astVer is not None else f'{saveLocation}\\{astId}'
-        assetSave = open(f'{fileName}{astTypes[getMeta(astId, "AssetTypeId")][1]}','wb+')
-        assetSave.write(astData)
-        assetSave.close()
+        with open(f'{fileName}{astTypes[getMeta(astId, "AssetTypeId")][1]}','wb+') as assetSave:
+            assetSave.write(astData)
         jsonMeta = getMeta(astId)
         if jsonMeta != 0:
             metaSaveLoc = f'{fileName}-META.txt'
             if not os.path.isfile(metaSaveLoc):
-                metaFile = open(f'{metaSaveLoc}', 'a', encoding = 'utf-8')
-                for i in jsonMeta:
-                    if i == 'Creator':
-                        metaFile.write('Creator: \n')
-                        for e in jsonMeta[i]:
-                            metaFile.write(f'\t{e} : {jsonMeta[i][e]}\n')
-                    else:
-                        metaFile.write(f'{i}: {jsonMeta[i]}\n')
-                metaFile.close()
+                with open(f'{metaSaveLoc}', 'a', encoding = 'utf-8') as metaFile:
+                    for i in jsonMeta:
+                        if i == 'Creator':
+                            metaFile.write('Creator: \n')
+                            for e in jsonMeta[i]:
+                                metaFile.write(f'\t{e} : {jsonMeta[i][e]}\n')
+                        else:
+                            metaFile.write(f'{i}: {jsonMeta[i]}\n')
         return 1
     except OSError as e:
         writeLogs(e)
@@ -113,9 +108,9 @@ def download(astId, astVer, args):
         print(f'Saving: {url}...')
         save = saveAsset(astId, astTypes[getMeta(astId, 'AssetTypeId')][0], cDir, sDir, resp[1].content, astVer)
         if save == 1:
-            print(f'Saved asset sucessfully!')
+            print('Saved asset sucessfully!')
         else:
-            print(f'Save failed, Check logs for more info...')
+            print('Save failed, Check logs for more info...')
         return 1
     elif resp[0] == 404:
         print('Could not download because asset was not found')
@@ -132,9 +127,8 @@ def allVer(astId, args):
             break
         aVer += 1
 def writeLogs(msg):
-    logFile = open('rbxdl.log', 'a')
-    logFile.write(f'{msg}\n\n')
-    logFile.close()
+    with open('rbxdl.log', 'a') as logFile:
+        logFile.write(f'{msg}\n\n')
 #Reduces code
 def startDL(astId, astVer, args, getAll=False):
     if getAll:
@@ -145,7 +139,7 @@ def startDL(astId, astVer, args, getAll=False):
 def handleArgs(args):
     astId = literal_eval(args.assetid)
     dlm = args.downlmode
-    astVer = args.ver 
+    astVer = args.ver
     getAll = args.allVer
     if dlm == 'single':
         startDL(astId, astVer, args, getAll)
@@ -154,23 +148,25 @@ def handleArgs(args):
             for i in astId:
                 startDL(i, astVer, args, getAll)
         else:
-            raise ValueError('Incorrect format for bulk downloading. Should be laid out as [id1,id2,id3,etc..]')   
+            raise ValueError('Incorrect format for bulk downloading. Should be laid out as [id1,id2,id3,etc..]')
     elif dlm == 'range':
         if isinstance(astId, list) and len(astId) == 2:
             for i in range(astId[0], astId[1]+1):
                 startDL(i, astVer, args, getAll)
         else:
-            raise ValueError('Incorrect format for range downloading. Should be laid out as [minId, maxId]') 
+            raise ValueError('Incorrect format for range downloading. Should be laid out as [minId, maxId]')
     elif dlm == 'roulette':
-        rlAmn = args.rltAmnt if args.rltAmnt is not None else 1  
+        rlAmn = args.rltAmnt if args.rltAmnt is not None else 1
         rlType = args.rltType
         for i in range(1,rlAmn+1):
             while True:
                 canDl = True
                 randomId = random.randint(1000, 5000000000)
-                if rlType is not None:
-                    if getMeta(randomId, 'AssetTypeId') != rlType:
-                        canDl = False    
+                if (
+                    rlType is not None
+                    and getMeta(randomId, 'AssetTypeId') != rlType
+                ):
+                    canDl = False
                 if canDl:
                     if startDL(randomId, None, args) == 1:
                         break                
