@@ -1,9 +1,10 @@
-import requests
 import argparse
-import time
 import os
 import random
+import time
 from ast import literal_eval
+
+import requests
 
 # Still have yet to find a way to reduce this...
 astTypes = {
