@@ -78,7 +78,8 @@ def makeWebReq(url):
 
 def getMeta(astId, specific=None):
     resp = makeWebReq(f"{apiUrl}{astId}")
-    return resp[1].json().get(specific) or resp[1].json() if resp[0] == 200 else 0
+    return resp[1].json().get(
+        specific) or resp[1].json() if resp[0] == 200 else 0
 
 
 # Reduces amount of code I need to write
@@ -97,19 +98,12 @@ def saveAsset(astId, astTypeStr, cDir, sDirName, astData, astVer):
     try:
         createDirectory(cDir)
         createDirectory(f"{cDir}\\{astTypeStr}")
-        saveLocation = (
-            createDirectory(f"{cDir}\\{astTypeStr}\\{astId}")
-            if sDirName is True
-            else f"{cDir}\\{astTypeStr}"
-        )
-        fileName = (
-            f"{saveLocation}\\{astId}-version{astVer}"
-            if astVer is not None
-            else f"{saveLocation}\\{astId}"
-        )
-        with open(
-            f'{fileName}{astTypes[getMeta(astId, "AssetTypeId")][1]}', "wb+"
-        ) as assetSave:
+        saveLocation = (createDirectory(f"{cDir}\\{astTypeStr}\\{astId}")
+                        if sDirName is True else f"{cDir}\\{astTypeStr}")
+        fileName = (f"{saveLocation}\\{astId}-version{astVer}"
+                    if astVer is not None else f"{saveLocation}\\{astId}")
+        with open(f'{fileName}{astTypes[getMeta(astId, "AssetTypeId")][1]}',
+                  "wb+") as assetSave:
             assetSave.write(astData)
         jsonMeta = getMeta(astId)
         if jsonMeta != 0:
@@ -135,11 +129,8 @@ def saveAsset(astId, astTypeStr, cDir, sDirName, astData, astVer):
 def download(astId, astVer, args):
     cDir = args.dir if args.dir is not None else "Downloaded"
     sDir = args.sdirs
-    url = (
-        f"{astUrl}{astId}&version={astVer}"
-        if astVer is not None
-        else f"{astUrl}{astId}"
-    )
+    url = (f"{astUrl}{astId}&version={astVer}"
+           if astVer is not None else f"{astUrl}{astId}")
     print(f"Downloading: {url}...")
     resp = makeWebReq(url)
     if resp[0] == 200:
@@ -225,7 +216,8 @@ def handleArgs(args):
             while True:
                 canDl = True
                 randomId = random.randint(1000, 5000000000)
-                if rlType is not None and getMeta(randomId, "AssetTypeId") != rlType:
+                if rlType is not None and getMeta(randomId,
+                                                  "AssetTypeId") != rlType:
                     canDl = False
                 if canDl and startDL(randomId, None, args) == 1:
                     break
@@ -240,21 +232,25 @@ cmdParse.add_argument(
     type=str,
 )
 cmdParse.add_argument("assetid", help="id(s) of asset", type=str)
-cmdParse.add_argument("--dir", help="save assets into your own directory", type=str)
+cmdParse.add_argument("--dir",
+                      help="save assets into your own directory",
+                      type=str)
 cmdParse.add_argument("--ver", help="version(s) of the asset(s)", type=str)
-cmdParse.add_argument(
-    "--sdirs", help="save assets in their own directories", action="store_true"
-)
+cmdParse.add_argument("--sdirs",
+                      help="save assets in their own directories",
+                      action="store_true")
 cmdParse.add_argument(
     "--allVer",
     help="Download all of the versions of an asset (slow)",
     action="store_true",
 )
 cmdParse.add_argument(
-    "--rltAmnt", help="How many times should the roulette download something?", type=int
-)
+    "--rltAmnt",
+    help="How many times should the roulette download something?",
+    type=int)
 cmdParse.add_argument(
-    "--rltType", help="What specific asset type should the roulette look for?", type=int
-)
+    "--rltType",
+    help="What specific asset type should the roulette look for?",
+    type=int)
 args = cmdParse.parse_args()
 handleArgs(args)
