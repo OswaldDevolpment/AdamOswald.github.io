@@ -1,7 +1,5 @@
-var hljs = new (function () {
-  function l(o) {
-    return o.replace(/&/gm, "&amp;").replace(/</gm, "&lt;");
-  }
+var hljs = new (function() {
+  function l(o) { return o.replace(/&/gm, "&amp;").replace(/</gm, "&lt;"); }
   function c(q, p, o) {
     return RegExp(p, "m" + (q.cI ? "i" : "") + (o ? "g" : ""));
   }
@@ -50,7 +48,7 @@ var hljs = new (function () {
   }
   function b(o) {
     var p = [];
-    (function (r, s) {
+    (function(r, s) {
       for (var q = 0; q < r.childNodes.length; q++) {
         if (r.childNodes[q].nodeType == 3) {
           s += r.childNodes[q].nodeValue.length;
@@ -58,9 +56,9 @@ var hljs = new (function () {
           if (r.childNodes[q].nodeName == "BR") {
             s += 1;
           } else {
-            p.push({ event: "start", offset: s, node: r.childNodes[q] });
+            p.push({event : "start", offset : s, node : r.childNodes[q]});
             s = arguments.callee(r.childNodes[q], s);
-            p.push({ event: "stop", offset: s, node: r.childNodes[q] });
+            p.push({event : "stop", offset : s, node : r.childNodes[q]});
           }
         }
       }
@@ -138,9 +136,7 @@ var hljs = new (function () {
       }
       return 0;
     }
-    function w(r, K) {
-      return K.iR && K.iR.test(r);
-    }
+    function w(r, K) { return K.iR && K.iR.test(r); }
     function z(N, M) {
       var L = [];
       for (var K = 0; K < N.c.length; K++) {
@@ -166,9 +162,9 @@ var hljs = new (function () {
       M.t.lastIndex = K;
       var r = M.t.exec(L);
       if (r) {
-        return [L.substr(K, r.index - K), r[0], false];
+        return [ L.substr(K, r.index - K), r[0], false ];
       } else {
-        return [L.substr(K), "", true];
+        return [ L.substr(K), "", true ];
       }
     }
     function o(N, r) {
@@ -179,7 +175,7 @@ var hljs = new (function () {
         }
         var L = N.kG[M].hasOwnProperty(K);
         if (L) {
-          return [M, L];
+          return [ M, L ];
         }
       }
       return false;
@@ -276,7 +272,7 @@ var hljs = new (function () {
       }
     }
     var G = d[I];
-    var B = [G.dM];
+    var B = [ G.dM ];
     var A = 0;
     var s = 0;
     var p = "";
@@ -294,10 +290,10 @@ var hljs = new (function () {
       if (B.length > 1) {
         throw "Illegal";
       }
-      return { language: I, r: A, keyword_count: s, value: p };
+      return {language : I, r : A, keyword_count : s, value : p};
     } catch (F) {
       if (F == "Illegal") {
-        return { language: null, r: 0, keyword_count: 0, value: l(C) };
+        return {language : null, r : 0, keyword_count : 0, value : l(C)};
       } else {
         throw F;
       }
@@ -333,7 +329,7 @@ var hljs = new (function () {
         if (t.k[r] instanceof Object) {
           t.kG = t.k;
         } else {
-          t.kG = { keyword: t.k };
+          t.kG = {keyword : t.k};
         }
         break;
       }
@@ -372,7 +368,7 @@ var hljs = new (function () {
     if (r) {
       var w = f(r, A);
     } else {
-      var w = { language: "", keyword_count: 0, r: 0, value: l(A) };
+      var w = {language : "", keyword_count : 0, r : 0, value : l(A)};
       var x = w;
       for (var z in d) {
         if (!d.hasOwnProperty(z)) {
@@ -399,18 +395,15 @@ var hljs = new (function () {
       w.value = k(o, b(q), A);
     }
     if (y) {
-      w.value = w.value.replace(/^((<[^>]+>|\t)+)/gm, function (B, E, D, C) {
-        return E.replace(/\t/g, y);
-      });
+      w.value =
+          w.value.replace(/^((<[^>]+>|\t)+)/gm,
+                          function(B, E, D, C) { return E.replace(/\t/g, y); });
     }
     if (p) {
       w.value = w.value.replace(/\n/g, "<br>");
     }
-    if (
-      /MSIE [678]/.test(navigator.userAgent) &&
-      t.tagName.toLowerCase() == "code" &&
-      t.parentNode.tagName == "PRE"
-    ) {
+    if (/MSIE [678]/.test(navigator.userAgent) &&
+        t.tagName.toLowerCase() == "code" && t.parentNode.tagName == "PRE") {
       var q = t.parentNode;
       var v = document.createElement("div");
       v.innerHTML = "<pre><code>" + w.value + "</code></pre>";
@@ -422,12 +415,12 @@ var hljs = new (function () {
     }
     t.className = s;
     t.dataset = {};
-    t.dataset.result = { language: w.language, kw: w.keyword_count, re: w.r };
+    t.dataset.result = {language : w.language, kw : w.keyword_count, re : w.r};
     if (x && x.language) {
       t.dataset.second_best = {
-        language: x.language,
-        kw: x.keyword_count,
-        re: x.r,
+        language : x.language,
+        kw : x.keyword_count,
+        re : x.r,
       };
     }
   }
@@ -447,9 +440,7 @@ var hljs = new (function () {
   }
   function m() {
     var o = arguments;
-    var p = function () {
-      j.apply(null, o);
-    };
+    var p = function() { j.apply(null, o); };
     if (window.addEventListener) {
       window.addEventListener("DOMContentLoaded", p, false);
       window.addEventListener("load", p, false);
@@ -471,16 +462,18 @@ var hljs = new (function () {
   this.NR = "\\b\\d+(\\.\\d+)?";
   this.CNR = "\\b(0x[A-Za-z0-9]+|\\d+(\\.\\d+)?)";
   this.RSR =
-    "!|!=|!==|%|%=|&|&&|&=|\\*|\\*=|\\+|\\+=|,|\\.|-|-=|/|/=|:|;|<|<<|<<=|<=|=|==|===|>|>=|>>|>>=|>>>|>>>=|\\?|\\[|\\{|\\(|\\^|\\^=|\\||\\|=|\\|\\||~";
-  this.BE = { b: "\\\\.", r: 0 };
-  this.ASM = { cN: "string", b: "'", e: "'", i: "\\n", c: [this.BE], r: 0 };
-  this.QSM = { cN: "string", b: '"', e: '"', i: "\\n", c: [this.BE], r: 0 };
-  this.CLCM = { cN: "comment", b: "//", e: "$" };
-  this.CBLCLM = { cN: "comment", b: "/\\*", e: "\\*/" };
-  this.HCM = { cN: "comment", b: "#", e: "$" };
-  this.NM = { cN: "number", b: this.NR, r: 0 };
-  this.CNM = { cN: "number", b: this.CNR, r: 0 };
-  this.inherit = function (o, r) {
+      "!|!=|!==|%|%=|&|&&|&=|\\*|\\*=|\\+|\\+=|,|\\.|-|-=|/|/=|:|;|<|<<|<<=|<=|=|==|===|>|>=|>>|>>=|>>>|>>>=|\\?|\\[|\\{|\\(|\\^|\\^=|\\||\\|=|\\|\\||~";
+  this.BE = {b : "\\\\.", r : 0};
+  this.ASM =
+      {cN : "string", b : "'", e : "'", i : "\\n", c : [ this.BE ], r : 0};
+  this.QSM =
+      {cN : "string", b : '"', e : '"', i : "\\n", c : [ this.BE ], r : 0};
+  this.CLCM = {cN : "comment", b : "//", e : "$"};
+  this.CBLCLM = {cN : "comment", b : "/\\*", e : "\\*/"};
+  this.HCM = {cN : "comment", b : "#", e : "$"};
+  this.NM = {cN : "number", b : this.NR, r : 0};
+  this.CNM = {cN : "number", b : this.CNR, r : 0};
+  this.inherit = function(o, r) {
     var q = {};
     for (var p in o) {
       q[p] = o[p];
@@ -612,74 +605,76 @@ hljs.LANGUAGES.cs = {
   },
 };
 hljs.LANGUAGES.javascript = {
-  dM: {
-    k: {
-      keyword: {
-        in: 1,
-        if: 1,
-        for: 1,
-        while: 1,
-        finally: 1,
-        var: 1,
-        new: 1,
-        function: 1,
-        do: 1,
-        return: 1,
-        void: 1,
-        else: 1,
-        break: 1,
-        catch: 1,
-        instanceof: 1,
-        with: 1,
-        throw: 1,
-        case: 1,
-        default: 1,
-        try: 1,
-        this: 1,
-        switch: 1,
-        continue: 1,
-        typeof: 1,
-        delete: 1,
+  dM : {
+    k : {
+      keyword : {
+        in : 1,
+        if : 1,
+        for : 1,
+        while : 1,
+        finally : 1,
+        var : 1,
+        new : 1,
+        function : 1,
+        do : 1,
+        return : 1,
+        void : 1,
+        else : 1,
+        break : 1,
+        catch : 1,
+        instanceof : 1,
+        with : 1,
+        throw : 1,
+        case : 1,
+        default : 1,
+        try : 1,
+        this : 1,
+        switch : 1,
+        continue : 1,
+        typeof : 1,
+        delete : 1,
       },
-      literal: { true: 1, false: 1, null: 1 },
+      literal : {true : 1, false : 1, null : 1},
     },
-    c: [
+    c : [
       hljs.ASM,
       hljs.QSM,
       hljs.CLCM,
       hljs.CBLCLM,
       hljs.CNM,
       {
-        b: "(" + hljs.RSR + "|case|return|throw)\\s*",
-        k: { return: 1, throw: 1, case: 1 },
-        c: [hljs.CLCM, hljs.CBLCLM, { cN: "regexp", b: "/.*?[^\\\\/]/[gim]*" }],
-        r: 0,
+        b : "(" + hljs.RSR + "|case|return|throw)\\s*",
+        k : {return : 1, throw : 1, case : 1},
+        c : [
+          hljs.CLCM, hljs.CBLCLM, {cN : "regexp", b : "/.*?[^\\\\/]/[gim]*"}
+        ],
+        r : 0,
       },
       {
-        cN: "function",
-        b: "\\bfunction\\b",
-        e: "{",
-        k: { function: 1 },
-        c: [
-          { cN: "title", b: "[A-Za-z$_][0-9A-Za-z$_]*" },
+        cN : "function",
+        b : "\\bfunction\\b",
+        e : "{",
+        k : {function : 1},
+        c : [
+          {cN : "title", b : "[A-Za-z$_][0-9A-Za-z$_]*"},
           {
-            cN: "params",
-            b: "\\(",
-            e: "\\)",
-            c: [hljs.ASM, hljs.QSM, hljs.CLCM, hljs.CBLCLM],
+            cN : "params",
+            b : "\\(",
+            e : "\\)",
+            c : [ hljs.ASM, hljs.QSM, hljs.CLCM, hljs.CBLCLM ],
           },
         ],
       },
     ],
   },
 };
-hljs.LANGUAGES.lua = (function () {
+hljs.LANGUAGES.lua = (function() {
   var b = "\\[=*\\[";
   var e = "\\]=*\\]";
-  var a = { b: b, e: e };
-  a.c = [a];
-  var d = { cN: "comment", b: "--(?!" + b + ")", e: "$" };
-  var c = { cN: "comment", b: "--" + b, e: e, c: [a], r: 10 };
+  var a = {b : b, e : e};
+  a.c = [ a ];
+  var d = {cN : "comment", b : "--(?!" + b + ")", e : "$"};
+  var c = {cN : "comment", b : "--" + b, e : e, c : [ a ], r : 10};
   return {
     dM: {
       l: hljs.UIR,
@@ -772,66 +767,71 @@ hljs.LANGUAGES.lua = (function () {
     },
   };
 })();
-hljs.LANGUAGES.css = (function () {
+hljs.LANGUAGES.css = (function() {
   var a = {
-    cN: "function",
-    b: hljs.IR + "\\(",
-    e: "\\)",
-    c: [{ eW: true, eE: true, c: [hljs.NM, hljs.ASM, hljs.QSM] }],
+    cN : "function",
+    b : hljs.IR + "\\(",
+    e : "\\)",
+    c : [ {eW : true, eE : true, c : [ hljs.NM, hljs.ASM, hljs.QSM ]} ],
   };
   return {
-    cI: true,
-    dM: {
-      i: "[=/|']",
-      c: [
+    cI : true,
+    dM : {
+      i : "[=/|']",
+      c : [
         hljs.CBLCLM,
-        { cN: "id", b: "\\#[A-Za-z0-9_-]+" },
-        { cN: "class", b: "\\.[A-Za-z0-9_-]+", r: 0 },
-        { cN: "attr_selector", b: "\\[", e: "\\]", i: "$" },
-        { cN: "pseudo", b: ":(:)?[a-zA-Z0-9\\_\\-\\+\\(\\)\\\"\\']+" },
-        { cN: "at_rule", b: "@font-face", l: "[a-z-]+", k: { "font-face": 1 } },
+        {cN : "id", b : "\\#[A-Za-z0-9_-]+"},
+        {cN : "class", b : "\\.[A-Za-z0-9_-]+", r : 0},
+        {cN : "attr_selector", b : "\\[", e : "\\]", i : "$"},
+        {cN : "pseudo", b : ":(:)?[a-zA-Z0-9\\_\\-\\+\\(\\)\\\"\\']+"},
         {
-          cN: "at_rule",
-          b: "@",
-          e: "[{;]",
-          eE: true,
-          k: { import: 1, page: 1, media: 1, charset: 1 },
-          c: [a, hljs.ASM, hljs.QSM, hljs.NM],
+          cN : "at_rule",
+          b : "@font-face",
+          l : "[a-z-]+",
+          k : {"font-face" : 1}
         },
-        { cN: "tag", b: hljs.IR, r: 0 },
         {
-          cN: "rules",
-          b: "{",
-          e: "}",
-          i: "[^\\s]",
-          r: 0,
-          c: [
+          cN : "at_rule",
+          b : "@",
+          e : "[{;]",
+          eE : true,
+          k : {import : 1, page : 1, media : 1, charset : 1},
+          c : [ a, hljs.ASM, hljs.QSM, hljs.NM ],
+        },
+        {cN : "tag", b : hljs.IR, r : 0},
+        {
+          cN : "rules",
+          b : "{",
+          e : "}",
+          i : "[^\\s]",
+          r : 0,
+          c : [
             hljs.CBLCLM,
             {
-              cN: "rule",
-              b: "[^\\s]",
-              rB: true,
-              e: ";",
-              eW: true,
-              c: [
+              cN : "rule",
+              b : "[^\\s]",
+              rB : true,
+              e : ";",
+              eW : true,
+              c : [
                 {
-                  cN: "attribute",
-                  b: "[A-Z\\_\\.\\-]+",
-                  e: ":",
-                  eE: true,
-                  i: "[^\\s]",
-                  starts: {
-                    cN: "value",
-                    eW: true,
-                    eE: true,
-                    c: [
+                  cN : "attribute",
+                  b : "[A-Z\\_\\.\\-]+",
+                  e : ":",
+                  eE : true,
+                  i : "[^\\s]",
+                  starts : {
+                    cN : "value",
+                    eW : true,
+                    eE : true,
+                    c : [
                       a,
                       hljs.NM,
                       hljs.QSM,
                       hljs.ASM,
                       hljs.CBLCLM,
-                      { cN: "hexcolor", b: "\\#[0-9A-F]+" },
-                      { cN: "important", b: "!important" },
+                      {cN : "hexcolor", b : "\\#[0-9A-F]+"},
+                      {cN : "important", b : "!important"},
                     ],
                   },
                 },
@@ -843,62 +843,62 @@ hljs.LANGUAGES.css = (function () {
     },
   };
 })();
-hljs.LANGUAGES.xml = (function () {
+hljs.LANGUAGES.xml = (function() {
   var b = "[A-Za-z0-9\\._:-]+";
   var a = {
-    eW: true,
-    c: [
-      { cN: "attribute", b: b, r: 0 },
+    eW : true,
+    c : [
+      {cN : "attribute", b : b, r : 0},
       {
-        b: '="',
-        rB: true,
-        e: '"',
-        c: [{ cN: "value", b: '"', eW: true }],
+        b : '="',
+        rB : true,
+        e : '"',
+        c : [ {cN : "value", b : '"', eW : true} ],
       },
       {
-        b: "='",
-        rB: true,
-        e: "'",
-        c: [{ cN: "value", b: "'", eW: true }],
+        b : "='",
+        rB : true,
+        e : "'",
+        c : [ {cN : "value", b : "'", eW : true} ],
       },
-      { b: "=", c: [{ cN: "value", b: "[^\\s/>]+" }] },
+      {b : "=", c : [ {cN : "value", b : "[^\\s/>]+"} ]},
     ],
   };
   return {
-    cI: true,
-    dM: {
-      c: [
-        { cN: "pi", b: "<\\?", e: "\\?>", r: 10 },
-        { cN: "doctype", b: "<!DOCTYPE", e: ">", r: 10 },
-        { cN: "comment", b: "<!--", e: "-->", r: 10 },
-        { cN: "cdata", b: "<\\!\\[CDATA\\[", e: "\\]\\]>", r: 10 },
+    cI : true,
+    dM : {
+      c : [
+        {cN : "pi", b : "<\\?", e : "\\?>", r : 10},
+        {cN : "doctype", b : "<!DOCTYPE", e : ">", r : 10},
+        {cN : "comment", b : "<!--", e : "-->", r : 10},
+        {cN : "cdata", b : "<\\!\\[CDATA\\[", e : "\\]\\]>", r : 10},
         {
-          cN: "tag",
-          b: "<style",
-          e: ">",
-          k: { title: { style: 1 } },
-          c: [a],
-          starts: { cN: "css", e: "</style>", rE: true, sL: "css" },
+          cN : "tag",
+          b : "<style",
+          e : ">",
+          k : {title : {style : 1}},
+          c : [ a ],
+          starts : {cN : "css", e : "</style>", rE : true, sL : "css"},
         },
         {
-          cN: "tag",
-          b: "<script",
-          e: ">",
-          k: { title: { script: 1 } },
-          c: [a],
-          starts: {
-            cN: "javascript",
-            e: "</script>",
-            rE: true,
-            sL: "javascript",
+          cN : "tag",
+          b : "<script",
+          e : ">",
+          k : {title : {script : 1}},
+          c : [ a ],
+          starts : {
+            cN : "javascript",
+            e : "</script>",
+            rE : true,
+            sL : "javascript",
           },
         },
-        { cN: "vbscript", b: "<%", e: "%>", sL: "vbscript" },
+        {cN : "vbscript", b : "<%", e : "%>", sL : "vbscript"},
         {
-          cN: "tag",
-          b: "</?",
-          e: "/?>",
-          c: [{ cN: "title", b: "[^ />]+" }, a],
+          cN : "tag",
+          b : "</?",
+          e : "/?>",
+          c : [ {cN : "title", b : "[^ />]+"}, a ],
         },
       ],
     },
@@ -1086,17 +1086,17 @@ hljs.LANGUAGES.php = {
     ],
   },
 };
-hljs.LANGUAGES.python = (function () {
-  var c = { cN: "string", b: "u?r?'''", e: "'''", r: 10 };
-  var b = { cN: "string", b: 'u?r?"""', e: '"""', r: 10 };
-  var a = { cN: "string", b: "(u|r|ur)'", e: "'", c: [hljs.BE], r: 10 };
-  var f = { cN: "string", b: '(u|r|ur)"', e: '"', c: [hljs.BE], r: 10 };
-  var d = { cN: "title", b: hljs.UIR };
+hljs.LANGUAGES.python = (function() {
+  var c = {cN : "string", b : "u?r?'''", e : "'''", r : 10};
+  var b = {cN : "string", b : 'u?r?"""', e : '"""', r : 10};
+  var a = {cN : "string", b : "(u|r|ur)'", e : "'", c : [ hljs.BE ], r : 10};
+  var f = {cN : "string", b : '(u|r|ur)"', e : '"', c : [ hljs.BE ], r : 10};
+  var d = {cN : "title", b : hljs.UIR};
   var e = {
-    cN: "params",
-    b: "\\(",
-    e: "\\)",
-    c: [c, b, a, f, hljs.ASM, hljs.QSM],
+    cN : "params",
+    b : "\\(",
+    e : "\\)",
+    c : [ c, b, a, f, hljs.ASM, hljs.QSM ],
   };
   return {
     dM: {
@@ -1416,130 +1416,130 @@ hljs.LANGUAGES.sql = {
     ],
   },
 };
-hljs.LANGUAGES.cpp = (function () {
+hljs.LANGUAGES.cpp = (function() {
   var b = {
-    keyword: {
-      false: 1,
-      int: 1,
-      float: 1,
-      while: 1,
-      private: 1,
-      char: 1,
-      catch: 1,
-      export: 1,
-      virtual: 1,
-      operator: 2,
-      sizeof: 2,
-      dynamic_cast: 2,
-      typedef: 2,
-      const_cast: 2,
-      const: 1,
-      struct: 1,
-      for: 1,
-      static_cast: 2,
-      union: 1,
-      namespace: 1,
-      unsigned: 1,
-      long: 1,
-      throw: 1,
-      volatile: 2,
-      static: 1,
-      protected: 1,
-      bool: 1,
-      template: 1,
-      mutable: 1,
-      if: 1,
-      public: 1,
-      friend: 2,
-      do: 1,
-      return: 1,
-      goto: 1,
-      auto: 1,
-      void: 2,
-      enum: 1,
-      else: 1,
-      break: 1,
-      new: 1,
-      extern: 1,
-      using: 1,
-      true: 1,
-      class: 1,
-      asm: 1,
-      case: 1,
-      typeid: 1,
-      short: 1,
-      reinterpret_cast: 2,
-      default: 1,
-      double: 1,
-      register: 1,
-      explicit: 1,
-      signed: 1,
-      typename: 1,
-      try: 1,
-      this: 1,
-      switch: 1,
-      continue: 1,
-      wchar_t: 1,
-      inline: 1,
-      delete: 1,
-      alignof: 1,
-      char16_t: 1,
-      char32_t: 1,
-      constexpr: 1,
-      decltype: 1,
-      noexcept: 1,
-      nullptr: 1,
-      static_assert: 1,
-      thread_local: 1,
+    keyword : {
+      false : 1,
+      int : 1,
+      float : 1,
+      while : 1,
+      private : 1,
+      char : 1,
+      catch : 1,
+      export : 1,
+      virtual : 1,
+      operator : 2,
+      sizeof : 2,
+      dynamic_cast : 2,
+      typedef : 2,
+      const_cast : 2,
+      const : 1,
+      struct : 1,
+      for : 1,
+      static_cast : 2,
+      union : 1,
+      namespace : 1,
+      unsigned : 1,
+      long : 1,
+      throw : 1,
+      volatile : 2,
+      static : 1,
+      protected : 1,
+      bool : 1,
+      template : 1,
+      mutable : 1,
+      if : 1,
+      public : 1,
+      friend : 2,
+      do : 1,
+      return : 1,
+      goto : 1,
+      auto : 1,
+      void : 2,
+      enum : 1,
+      else : 1,
+      break : 1,
+      new : 1,
+      extern : 1,
+      using : 1,
+      true : 1,
+      class : 1,
+      asm : 1,
+      case : 1,
+      typeid : 1,
+      short : 1,
+      reinterpret_cast : 2,
+      default : 1,
+      double : 1,
+      register : 1,
+      explicit : 1,
+      signed : 1,
+      typename : 1,
+      try : 1,
+      this : 1,
+      switch : 1,
+      continue : 1,
+      wchar_t : 1,
+      inline : 1,
+      delete : 1,
+      alignof : 1,
+      char16_t : 1,
+      char32_t : 1,
+      constexpr : 1,
+      decltype : 1,
+      noexcept : 1,
+      nullptr : 1,
+      static_assert : 1,
+      thread_local : 1,
     },
-    built_in: {
-      std: 1,
-      string: 1,
-      cin: 1,
-      cout: 1,
-      cerr: 1,
-      clog: 1,
-      stringstream: 1,
-      istringstream: 1,
-      ostringstream: 1,
-      auto_ptr: 1,
-      deque: 1,
-      list: 1,
-      queue: 1,
-      stack: 1,
-      vector: 1,
-      map: 1,
-      set: 1,
-      bitset: 1,
-      multiset: 1,
-      multimap: 1,
-      unordered_set: 1,
-      unordered_map: 1,
-      unordered_multiset: 1,
-      unordered_multimap: 1,
-      array: 1,
-      shared_ptr: 1,
+    built_in : {
+      std : 1,
+      string : 1,
+      cin : 1,
+      cout : 1,
+      cerr : 1,
+      clog : 1,
+      stringstream : 1,
+      istringstream : 1,
+      ostringstream : 1,
+      auto_ptr : 1,
+      deque : 1,
+      list : 1,
+      queue : 1,
+      stack : 1,
+      vector : 1,
+      map : 1,
+      set : 1,
+      bitset : 1,
+      multiset : 1,
+      multimap : 1,
+      unordered_set : 1,
+      unordered_map : 1,
+      unordered_multiset : 1,
+      unordered_multimap : 1,
+      array : 1,
+      shared_ptr : 1,
     },
   };
   var a = {
-    cN: "stl_container",
-    b: "\\b(deque|list|queue|stack|vector|map|set|bitset|multiset|multimap|unordered_map|unordered_set|unordered_multiset|unordered_multimap|array)\\s*<",
-    e: ">",
-    k: b.built_in,
-    r: 10,
+    cN : "stl_container",
+    b : "\\b(deque|list|queue|stack|vector|map|set|bitset|multiset|multimap|unordered_map|unordered_set|unordered_multiset|unordered_multimap|array)\\s*<",
+    e : ">",
+    k : b.built_in,
+    r : 10,
   };
-  a.c = [a];
+  a.c = [ a ];
   return {
-    dM: {
-      k: b,
-      i: "</",
-      c: [
+    dM : {
+      k : b,
+      i : "</",
+      c : [
         hljs.CLCM,
         hljs.CBLCLM,
         hljs.QSM,
-        { cN: "string", b: "'", e: "[^\\\\]'", i: "[^\\\\][^']" },
+        {cN : "string", b : "'", e : "[^\\\\]'", i : "[^\\\\][^']"},
         hljs.CNM,
-        { cN: "preprocessor", b: "#", e: "$" },
+        {cN : "preprocessor", b : "#", e : "$"},
         a,
       ],
     },
