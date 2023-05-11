@@ -158,7 +158,7 @@ def handleArgs(args):
     elif dlm == 'roulette':
         rlAmn = args.rltAmnt if args.rltAmnt is not None else 1
         rlType = args.rltType
-        for i in range(1,rlAmn+1):
+        for _ in range(1,rlAmn+1):
             while True:
                 canDl = True
                 randomId = random.randint(1000, 5000000000)
@@ -167,9 +167,8 @@ def handleArgs(args):
                     and getMeta(randomId, 'AssetTypeId') != rlType
                 ):
                     canDl = False
-                if canDl:
-                    if startDL(randomId, None, args) == 1:
-                        break                
+                if canDl and startDL(randomId, None, args) == 1:
+                    break                
 #argparse 
 cmdParse = argparse.ArgumentParser(description='Download assets from ROBLOX.')
 cmdParse.add_argument('downlmode', choices=['single', 'bulk', 'range', 'roulette'], help='mode for asset downloading', type=str)
